@@ -1,14 +1,19 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import UserList from "./components/UserList";
+import Paginator from "./components/Paginator";
 
 function App() {
   const [people, setPeople] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const getPeople = async (page) => {
-    fetch(`https://randomuser.me/api/?results=3&page=${page}`)
+  const getPeople = async () => {
+    setLoading(true);
+    await fetch(`https://randomuser.me/api/?results=3&page=${page}&seed=abc`)
       .then((res) => res.json())
       .then((data) => setPeople(data.results));
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -16,29 +21,16 @@ function App() {
   }, [page]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="text-7xl">My Clerk App</h1>
-        {people && (
-          <div>
-            <br />
-            {people.map((p, i) => (
-              <div key={i}>
-                {p.name.first} {p.name.last}
-              </div>
-            ))}
-          </div>
-        )}
-        <div>
-          <button
-            type="button"
-            onClick={() => setPage(page + 1)}
-            className="bg-cyan-700 text-cyan-100 px-4 py-2 border-md my-10 text-2xl"
-          >
-            LOAD MORE PEOPLE
-          </button>
-        </div>
-      </header>
+    <div className="min-h-screen font-Inter py-10 flex flex-col gap-5">
+      <h1 className="text-5xl text-blue-700 font-bold text-center mb-5">
+        My Clerks App
+      </h1>
+      {people.length === 0 ? (
+        <div>Loading...</div>
+      ) : (
+        <UserList people={people} loading={loading} />
+      )}
+      <Paginator page={page} setPage={setPage} />
     </div>
   );
 }
