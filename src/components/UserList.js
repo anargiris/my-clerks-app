@@ -1,7 +1,7 @@
 import React from "react";
 import UserCard from "./UserCard";
 
-const UserList = ({ people, loading }) => {
+const UserList = ({ people, loading, cardColor }) => {
   return (
     <div
       className={`${
@@ -10,7 +10,7 @@ const UserList = ({ people, loading }) => {
     >
       <div className="flex flex-col md:flex-row gap-4 items-center mx-10">
         {people.map((p, i) => (
-          <UserCard person={p} key={i} />
+          <UserCard person={p} key={i} cardColor={cardColor} />
         ))}
       </div>
     </div>

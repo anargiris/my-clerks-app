@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const UserCard = ({ person }) => {
-  console.log(person);
+const UserCard = ({ person, cardColor }) => {
   return (
-    <div className="w-full border border-gray-300 bg-gray-50 text-lg flex flex-col p-4 flex-grow shadow-sm">
+    <div
+      className={`w-80 md:w-auto md:flex-1 border border-gray-500 bg-${cardColor} text-lg flex flex-col p-4 shadow-md rounded-sm`}
+    >
       <img
-        className="flex justify-center mb-4 w-20 h-20 mx-auto rounded-full"
-        src={person.picture.medium}
+        className="flex justify-center mb-4 w-24 h-24 mx-auto rounded-full"
+        src={person.picture.large}
         alt="A Picture of a person"
       />
-      <div className="flex flex-col">
+
+      <div className="flex flex-col text-sm md:items-center text-gray-900">
         <div>
-          <p className="font-semibold">
+          <p className="font-semibold mb-2 text-xl md:text-center text-black">
             {person.name.first} {person.name.last}
           </p>
+          <p>{person.phone}</p>
           <p>{person.email}</p>
           <p className="truncate">
             {person.location.city}, {person.location.state}
