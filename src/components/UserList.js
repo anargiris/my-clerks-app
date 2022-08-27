@@ -4,6 +4,7 @@ import UserCard from "./UserCard";
 const UserList = ({ people, loading, cardColor }) => {
   return (
     <div
+      data-testid="user-list"
       className={`${
         loading === true ? "opacity-50" : "opacity-100"
       } transition-all duration-200 ease-linear`}

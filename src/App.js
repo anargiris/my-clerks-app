@@ -44,7 +44,7 @@ function App() {
           </div>
         ) : (
           <>
-            {loading ? (
+            {people.length === 0 ? (
               <div className="text-center">Fetching people data...</div>
             ) : (
               <UserList
@@ -55,8 +55,17 @@ function App() {
             )}
           </>
         )}
-
-        <Paginator page={page} setPage={setPage} loading={loading} />
+        {error ? (
+          <button
+            type="button"
+            onClick={() => getPeople()}
+            className="bg-cyan-600 hover:bg-cyan-500 px-4 py-2 w-32 mx-auto rounded-md text-cyan-50"
+          >
+            Retry
+          </button>
+        ) : (
+          <Paginator page={page} setPage={setPage} loading={loading} />
+        )}
       </div>
     </div>
   );
