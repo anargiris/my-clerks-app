@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 const UserCard = ({ person, cardColor }) => {
   return (
     <div
-      className={`w-80 md:w-auto md:flex-1 border border-gray-500 bg-${cardColor} text-lg flex flex-col p-4 shadow-md rounded-sm`}
+      data-testid="user-card"
+      className={`w-80 md:w-auto md:flex-1 border border-gray-500 ${cardColor} text-lg flex flex-col p-4 shadow-md rounded-sm`}
     >
       <img
         className="flex justify-center mb-4 w-24 h-24 mx-auto rounded-full"

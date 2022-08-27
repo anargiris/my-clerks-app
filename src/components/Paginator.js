@@ -2,7 +2,7 @@ import React from "react";
 
 const Paginator = ({ page, setPage, loading }) => {
   return (
-    <div className="flex gap-10 justify-center items-center mx-4">
+    <div className="flex gap-10 justify-center items-center mx-4 relative">
       <button
         type="button"
         disabled={loading || page === 1}
