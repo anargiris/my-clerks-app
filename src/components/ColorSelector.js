@@ -30,14 +30,14 @@ const ColorSelector = ({ cardColor, setCardColor }) => {
         {showColorPicker && (
           <div
             data-testid="color-picker"
-            className={`absolute bg-white flex flex-wrap gap-x-2 gap-y-1 p-2 border border-gray-300 shadow-sm rounded-md gap-50  w-40`}
+            className={`absolute bg-white flex right-0 md:right-auto gap-x-2 gap-y-1 p-2 border border-gray-300 shadow-sm rounded-md gap-50`}
           >
             {colors.map((color, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => handleColorChange(color)}
-                className={`w-5 h-5 relative rounded-md ${color} cursor-pointer`}
+                className={`w-5 h-5 rounded-md ${color} cursor-pointer`}
               ></button>
             ))}
           </div>

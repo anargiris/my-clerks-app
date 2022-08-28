@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+My Clerks Project README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Project overview
 
-## Available Scripts
+  Starting this project, I decided to use React as I am confident building apps with it and I enjoy it more than other solutions/frameworks. I also included Tailwind in this project because it makes CSS better and easier for me. I didn't use any other libraries because I wanted to build this project with the "default" tools and make it less complicated to inspect(e.g I could have used axios for the HTTP requests but opted for the fetch API).
 
-In the project directory, you can run:
+  I use Prettier as a code formatter.
 
-### `npm start`
+  To run this project, use the "npm start" command in your node terminal.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-Project structure and architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    I used App.js as the component that would make the fetch requests and hold most of the state of the app(loading, error and card's color). I am using the useEffect hook to check when the current page changes, then I make a new request to the API for the new data. The "seed" parameter on the API url makes sure that the results for each page are the same instead of generating random results everytime the API is called. Everytime a request to the API is successful I populate the "people" state with the new results which are then passed down to the UserList component.
 
-### `npm test`
+    I created a separate component for each of the different functionalities of the app(displaying the user profiles, changing the background color of their cards, pagination). I pass the state down from the App component to the children components. I think it's acceptable that "cardColor" is passed down 2 levels (App -> UserList -> UserCard) and is not considered prop drilling. For a little bigger application I would use React's Context API and might move to a better solution for a bigger application(Redux).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    One of the patterns I always use is to create parent/child components for when I need to display different data under the same identity which in this case is the UserList that renders a UserCard component for each diffent item on the "people" array.
 
-### `npm run build`
+-Coding best practises
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    On line 57 of the App.js file I check whether the "people" array has 0 length which happens the first time the app is rendered, so I show a message to the user to let him know that the app is fetching the data. If we get an error message from the API we enter the error state and a different message and button is shown to the user. I think it's debatable if the "people" array should be emptied when we get an error message. I choose to not empty the array, but I guess it all comes down the project manager desicions in real life examples. Should be an easy fix either way.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    The Paginator component renders the buttons that increment and decrement the page number. The buttons are disabled when the app is in a loading state to avoid any mismatch of the data or making the app look like it doesn't work properly(technically it works but it is a bad UX).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    I opted to go for the simplest solution when it comes to the logic of the app which in this case is to have the "getPeople" function on the App component. There's a lot of different ways to handle this and I guess it depends on the app size. If the getPeople function would be used by a lot of different components (along with others of the same nature), my go-to solution is to build a custom reusable hook(e.g useUsers). Another way is to store the reusable function in a file(e.g utils.js) and import each function in the component that uses it.
 
-### `npm run eject`
+    The ColorSelector components handles the client's ability to change the background color of the profiles. I put the different colors(using Tailwind's coloring conventions) in an array which I loop over to render each different button. I save the color changes in React state and also in local storage. If the page is refreshed, the color choice is persisted.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    I am using performance best practises when it comes to avoiding useless rerenders and the component's logic is decoupled. There was no need to use performance optimisation hooks such as useMemo and useCallback.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-Testing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    This was actually the first time I used testing in an app so it was kinda tricky at the start. I used online resources to get me started and tried to follow along on this app. I am not sure about the "mockPeopleData" I use(line 32 in App.test.js file). I've seen a lot of different approaches on the internet and opted to go with this one.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    I'd love to know if the testing I implemented on this app is acceptable and for the improvements that can be made.
