@@ -9,7 +9,7 @@ const ColorSelector = ({ cardColor, setCardColor }) => {
     setShowColorPicker(false);
   };
 
-  const colors = [
+  const selectionColors = [
     "bg-blue-100",
     "bg-red-100",
     "bg-yellow-100",
@@ -30,9 +30,9 @@ const ColorSelector = ({ cardColor, setCardColor }) => {
         {showColorPicker && (
           <div
             data-testid="color-picker"
-            className={`absolute bg-white flex right-0 md:right-auto gap-x-2 gap-y-1 p-2 border border-gray-300 shadow-sm rounded-md gap-50`}
+            className={`absolute bg-white flex right-0 md:right-auto gap-x-2 gap-y-1 p-2 border border-gray-300 shadow-sm rounded-md`}
           >
-            {colors.map((color, i) => (
+            {selectionColors.map((color, i) => (
               <button
                 key={i}
                 type="button"
